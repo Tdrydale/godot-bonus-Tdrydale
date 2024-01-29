@@ -1,17 +1,74 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1wjdpbgu3kqq"]
+[gd_scene load_steps=7 format=3 uid="uid://d1wjdpbgu3kqq"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_iix72"]
 [ext_resource type="PackedScene" uid="uid://ru6nlm2cx7p4" path="res://player.tscn" id="2_0ynng"]
+[ext_resource type="PackedScene" uid="uid://capww1o16r57q" path="res://spikes.tscn" id="3_bawfg"]
+[ext_resource type="PackedScene" uid="uid://tccjh86ay6hs" path="res://heart.tscn" id="4_migta"]
+[ext_resource type="PackedScene" uid="uid://vrd1nu8mwppt" path="res://level_completed.tscn" id="5_4j8vf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bl8ar"]
+size = Vector2(16, 64)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_iix72")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(0, 0, 16, 0, 16, 104, 40, 104, 64, 120, 96, 120, 112, 104, 136, 104, 136, 144, 160, 144, 160, 104, 184, 104, 184, 120, 208, 120, 232, 104, 256, 104, 256, 128, 280, 128, 280, 80, 304, 80, 304, 0, 320, 0, 320, 184, 0, 184)
+polygon = PackedVector2Array(0, 0, 16, 0, 16, 96, 40, 96, 64, 120, 80, 120, 96, 112, 112, 112, 112, 144, 136, 144, 136, 104, 168, 104, 168, 120, 192, 120, 224, 120, 256, 96, 272, 96, 272, 144, 304, 144, 304, 88, 304, 0, 320, 0, 320, 184, 0, 184)
 
 [node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
 
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(0, 0, 16, 0, 16, 96, 40, 96, 64, 120, 80, 120, 96, 112, 112, 112, 112, 144, 136, 144, 136, 104, 168, 104, 168, 120, 192, 120, 224, 120, 256, 96, 272, 96, 272, 144, 304, 144, 304, 88, 304, 0, 320, 0, 320, 184, 0, 184)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D2"]
+
 [node name="Player" parent="." instance=ExtResource("2_0ynng")]
-position = Vector2(32, 104)
+position = Vector2(32, 96)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(264, 32)
+shape = SubResource("RectangleShape2D_bl8ar")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_left = 256.0
+offset_right = 272.0
+offset_bottom = 64.0
+
+[node name="Spikes" parent="." instance=ExtResource("3_bawfg")]
+position = Vector2(112, 144)
+
+[node name="Spikes2" parent="." instance=ExtResource("3_bawfg")]
+position = Vector2(120, 144)
+
+[node name="Spikes3" parent="." instance=ExtResource("3_bawfg")]
+position = Vector2(272, 144)
+
+[node name="Spikes4" parent="." instance=ExtResource("3_bawfg")]
+position = Vector2(288, 144)
+
+[node name="Heart" parent="." instance=ExtResource("4_migta")]
+position = Vector2(104, 104)
+
+[node name="Heart2" parent="." instance=ExtResource("4_migta")]
+position = Vector2(296, 56)
+
+[node name="Heart3" parent="." instance=ExtResource("4_migta")]
+position = Vector2(280, 32)
+
+[node name="Heart4" parent="." instance=ExtResource("4_migta")]
+position = Vector2(24, 24)
+
+[node name="Heart5" parent="." instance=ExtResource("4_migta")]
+position = Vector2(312, -8)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LevelCompleted" parent="CanvasLayer" instance=ExtResource("5_4j8vf")]
+visible = false
+rotation = 0.00889761
